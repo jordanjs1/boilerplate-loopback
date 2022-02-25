@@ -1,0 +1,88 @@
+{
+	"parser": "@babel/eslint-parser",
+	"parserOptions": {
+		"sourceType": "module"
+	},
+	"extends": [
+		"airbnb-base"
+	],
+	"plugins": [
+		"import"
+	],
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [
+					".js",
+					".android.js",
+					".ios.js",
+					".jsx",
+					".json"
+				]
+			},
+			"babel-module": {
+				"root": [
+					"./"
+				],
+				"alias": {
+					"src": "./src",
+					"assets": "./assets"
+				}
+			}
+		}
+	},
+	"rules": {
+		"import/prefer-default-export": "off",
+		"import/no-unresolved": [
+			2,
+			{
+				"commonjs": true,
+				"amd": true
+			}
+		],
+		"import/no-commonjs": 2,
+		"import/no-dynamic-require": 2,
+		"import/namespace": 0,
+		"import/default": 0,
+		"import/no-named-as-default": 0,
+		"import/named": 0,
+		"import/no-named-as-default-member": 0,
+		"max-len": "off",
+		"global-require": "off",
+		"quote-props": "off",
+		"arrow-parens": "off",
+		"indent": [
+			2,
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"object-curly-newline": 0,
+		"prefer-template": 0,
+		"consistent-return": 0,
+		"arrow-body-style": 0,
+		"prefer-destructuring": 0,
+		"no-underscore-dangle": "off",
+		"no-lonely-if": 0,
+		"no-tabs": 0,
+		"no-plusplus": 0,
+		"no-bitwise": 0,
+		"no-console": 0,
+		"no-restricted-syntax": 0,
+		"function-paren-newline": 0,
+		"operator-linebreak": 0,
+		"no-unused-vars": [
+			"error",
+			{
+				"vars": "all",
+				"args": "none",
+				"ignoreRestSiblings": true
+			}
+		]
+	},
+	"globals": {
+		"fetch": true,
+		"__DEV__": true
+	}
+}

@@ -1,0 +1,280 @@
+{
+	"name": "user",
+	"plural": "users",
+	"base": "User",
+	"idInjection": true,
+	"options": {
+		"validateUpsert": true
+	},
+	"scope": {
+		"order": "createdAt DESC"
+	},
+	"mixins": {
+		"Counts": true,
+		"Timestamp": true,
+		"Paginator": true
+	},
+	"properties": {
+		"status": {
+			"type": "string",
+			"default": "active"
+		},
+		"role": {
+			"type": "string"
+		},
+		"emailVerified": {
+			"type": "boolean",
+			"default": false
+		},
+		"loginType": {
+			"type": "string",
+			"default": "email"
+		},
+		"fbVerified": {
+			"type": "object"
+		},
+		"avatar": {
+			"type": "string"
+		},
+		"cover": {
+			"type": "string"
+		},
+		"fullName": {
+			"type": "string",
+			"index": true
+		},
+		"gender": {
+			"type": "string"
+		},
+		"birthDate": {
+			"type": "date"
+		},
+		"phone": {
+			"type": "string",
+			"index": {
+				"unique": true
+			}
+		},
+		"email": {
+			"type": "string"
+		},
+		"address": {
+			"type": "string",
+			"index": true
+		},
+		"geoLocation": {
+			"type": "geopoint",
+			"index": true
+		},
+		"ggVerified": {
+			"type": "object"
+		},
+		"desc": {
+			"type": "string",
+			"index": true
+		},
+		"province": {
+			"type": "string",
+			"index": true
+		}
+	},
+	"validations": [],
+	"relations": {},
+	"acls": [
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "DENY"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "create"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "find"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "admin",
+			"permission": "DENY",
+			"property": "deleteById"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "login"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$authenticated",
+			"permission": "ALLOW",
+			"property": "logout"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "findById"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$authenticated",
+			"permission": "ALLOW",
+			"property": "patchAttributes"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "admin",
+			"permission": "ALLOW",
+			"property": "patchAttributes"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$owner",
+			"permission": "DENY",
+			"property": "replaceById"
+		},
+		{
+			"accessType": "EXECUTE",
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "verify"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "confirm"
+		},
+		{
+			"accessType": "EXECUTE",
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "resetPassword"
+		},
+		{
+			"accessType": "EXECUTE",
+			"principalType": "ROLE",
+			"principalId": "$owner",
+			"permission": "ALLOW",
+			"property": "changePassword"
+		},
+		{
+			"accessType": "EXECUTE",
+			"principalType": "ROLE",
+			"principalId": "$authenticated",
+			"permission": "ALLOW",
+			"property": "setPassword"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "loginFacebook"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "loginGoogle"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "exists"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "findOne"
+		},
+		{
+			"principalType": "ROLE",
+			"principalId": "$everyone",
+			"permission": "ALLOW",
+			"property": "count"
+		}
+	],
+	"methods": {
+		"loginFacebook": {
+			"accepts": [
+				{
+					"arg": "accessToken",
+					"type": "string",
+					"description": "AccessToken from facebook",
+					"required": true
+				},
+				{
+					"arg": "ttl",
+					"type": "number",
+					"description": "Time to live (seconds) (2 weeks by default)"
+				},
+				{
+					"arg": "include",
+					"type": ["string"],
+					"http": {"source": "query"},
+					"description": "Related objects to include in the response. See the description of return value for more details."
+				}
+			],
+			"returns": {
+				"arg": "result",
+				"type": "object",
+				"root": true
+			},
+			"description": "Login Facebook",
+			"http": [
+				{
+					"path": "/login-facebook",
+					"verb": "post"
+				}
+			]
+		},
+		"loginGoogle": {
+			"accepts": [
+				{
+					"arg": "accessToken",
+					"type": "string",
+					"description": "AccessToken from google",
+					"required": true
+				},
+				{
+					"arg": "ttl",
+					"type": "number",
+					"description": "Time to live (seconds) (2 weeks by default)"
+				},
+				{
+					"arg": "include",
+					"type": [
+						"string"
+					],
+					"http": {
+						"source": "query"
+					},
+					"description": "Related objects to include in the response. See the description of return value for more details."
+				}
+			],
+			"returns": {
+				"arg": "result",
+				"type": "object",
+				"root": true
+			},
+			"description": "Login Google",
+			"http": [
+				{
+					"path": "/login-google",
+					"verb": "post"
+				}
+			]
+		}
+	}
+}

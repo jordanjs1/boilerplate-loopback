@@ -1,0 +1,1 @@
+export const PASSWORD_DEFAULT = 'EAAE8vLtmv2aPtmvwdbeYswkA0c88iN0kWcInZCZCZCMakrs3ZAjy';

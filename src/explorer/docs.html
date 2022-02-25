@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Loopback API Document</title>
+	<link href='css/typography.css' media='screen' rel='stylesheet' type='text/css' />
+	<link href='css/reset.css' media='screen' rel='stylesheet' type='text/css' />
+	<link href='css/screen.css' media='screen' rel='stylesheet' type='text/css' />
+	<link href='css/loopbackStyles.css' media='screen' rel='stylesheet' type='text/css' />
+	<link href='css/reset.css' media='print' rel='stylesheet' type='text/css' />
+	<link href='css/print.css' media='print' rel='stylesheet' type='text/css' />
+	<link href='css/loopbackStyles.css' media='print' rel='stylesheet' type='text/css' />
+	<link href='./css/docs.css' media='screen' rel='stylesheet' type='text/css' />
+</head>
+
+<body class="swagger-section standalone">
+	<div id="header"style="box-sizing: initial !important;">
+		<div class="swagger-ui-wrap">
+			<a id="logo" style="line-height: 32px; padding: 0 !important;">Loopback</a>
+		</div>
+	</div>
+
+	<div class="contentWell" style="margin-top: 50px">
+		<div class="swagger-ui-wrap">
+			<h1 id="using-stringified-json-in-rest-queries" class="clickable-header">Using “stringified” JSON in REST queries
+				<a class="anchorjs-link " href="#using-stringified-json-in-rest-queries" aria-label="Anchor link for: using stringified json in rest queries"
+				 data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+			</h1>
+			<p>Instead of the standard REST syntax described above, you can also use “stringified JSON” in REST queries. To do this, simply
+				use the JSON specified for the Node syntax, as follows:</p>
+
+			<p>
+				<code class="highlighter-rouge">?filter={ Stringified-JSON&nbsp;}</code>
+			</p>
+
+			<p>where&nbsp;
+				<em>Stringified-JSON</em>&nbsp;is the stringified JSON from Node syntax. However, in the JSON&nbsp;all text keys/strings must
+				be enclosed in quotes (“).
+			</p>
+
+			<div class="alert alert-warning" role="alert">
+				<p>
+					<i class="fa fa-warning"></i>
+					<b>Important:</b>
+				</p>
+
+				<p>When using stringified JSON, you must use an equal sign after
+					<code class="highlighter-rouge">?filter</code> in the query string.</p>
+
+				<p>For example:
+					<code class="highlighter-rouge">http://localhost:3000/api/v1/books?filter={"where":{"id": 2}}</code>&nbsp;</p>
+			</div>
+
+			<p>For example:
+				<code class="highlighter-rouge">GET /api/v1/activities/findOne?filter={"where":{"id":1234}}</code>
+			</p>
+
+			<div id="toc">
+				<span class="toc-title">API supports the following kinds of filters:</span>
+				<button type="button" class="btn btn-link toc-expand-button">
+					<i class="fa fa-bars"></i>
+				</button>
+				<ul>
+					<li>
+						<a href="#fields">Fields filter</a>
+						<a class="anchorjs-link " href="#rest-api" aria-label="Anchor link for: rest api" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</li>
+					<li>
+						<a href="#include">Include filter</a>
+						<a class="anchorjs-link " href="#rest-api" aria-label="Anchor link for: rest api" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</li>
+					<li>
+						<a href="#limit">Limit filter</a>
+						<a class="anchorjs-link " href="#rest-api" aria-label="Anchor link for: rest api" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</li>
+					<li>
+						<a href="#order">Order filter</a>
+						<a class="anchorjs-link " href="#rest-api" aria-label="Anchor link for: rest api" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</li>
+					<li>
+						<a href="#skip">Skip filter</a>
+						<a class="anchorjs-link " href="#rest-api" aria-label="Anchor link for: rest api" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</li>
+					<li>
+						<a href="#where">Where filter</a>
+						<a class="anchorjs-link " href="#rest-api" aria-label="Anchor link for: rest api" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</li>
+				</ul>
+			</div>
+
+			<div id="fields" class="post-content" style="margin-top: 40px">
+				<h1 class="post-title-main">Fields filter</h1>
+				<p>A <em>fields</em> filter specifies properties (fields) to include or exclude from the results.</p>
+
+				<pre>{ fields: {<i>propertyName</i>: &lt;true|false&gt;, <i>propertyName</i>: &lt;true|false&gt;, ... } }</pre>
+
+				<p>For example:
+					<code class="highlighter-rouge">GET /api/v1/activities/findOne?filter={ "fields": {"propertyName": true, "propertyName": false, ... } }</code>
+				</p>
+
+				<p>Where:</p>
+
+				<ul>
+					<li>
+						<em>propertyName</em> is the name of the property (field) to include or exclude.</li>
+					<li>
+						<code class="highlighter-rouge">&lt;true|false&gt;</code> signifies either
+						<code class="highlighter-rouge">true</code> or
+						<code class="highlighter-rouge">false</code> Boolean literal. Use
+						<code class="highlighter-rouge">true</code> to include the property or
+						<code class="highlighter-rouge">false</code> to exclude it from results.</li>
+				</ul>
+
+				<p>By default, queries return all model properties in results. However, if you specify at least one fields filter with a value
+					of
+					<code class="highlighter-rouge">true</code>, then by default the query will include
+					<strong>only</strong> those you specifically include with filters.</p>
+
+				<h3 id="examples" class="clickable-header top-level-header">Examples
+					<a class="anchorjs-link " href="#examples" aria-label="Anchor link for: examples" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+				</h3>
+				<i class="icon-arrow-up back-to-top"> </i>
+
+				<p>Return only
+					<code class="highlighter-rouge">id</code>,
+					<code class="highlighter-rouge">make</code>, and
+					<code class="highlighter-rouge">model</code> properties:</p>
+
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code><span class="p">{</span> <span class="nl">fields</span><span class="p">:</span> <span class="p">{</span><span class="nl">id</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">make</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">model</span><span class="p">:</span> <span class="kc">true</span><span class="p">}</span> <span class="p">}</span>
+			</code></pre>
+					</div>
+				</div>
+
+				<p>Returns:</p>
+
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight"><pre class="highlight"><code> <span class="p">[{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+    <span class="s2">"make"</span><span class="p">:</span> <span class="s2">"Nissan"</span><span class="p">,</span>
+    <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"Titan"</span>
+  <span class="p">},</span> <span class="p">{</span>
+	<span class="s2">"id"</span><span class="p">:</span> <span class="s2">"2"</span><span class="p">,</span>
+    <span class="s2">"make"</span><span class="p">:</span> <span class="s2">"Nissan"</span><span class="p">,</span>
+    <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"Avalon"</span>
+  <span class="p">},</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+</code></pre>
+					</div>
+				</div>
+
+				<p>Exclude the
+					<code class="highlighter-rouge">vin</code> property:</p>
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code><span class="p">{</span> <span class="nl">fields</span><span class="p">:</span> <span class="p">{</span><span class="nl">vin</span><span class="p">:</span> <span class="kc">false</span><span class="p">}</span> <span class="p">}</span></code></pre>
+					</div>
+				</div>
+			</div>
+
+			<div id="include" class="post-content" style="margin-top: 40px">
+				<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+				<h1 class="post-title-main">Include filter</h1>
+				<p>An&nbsp;
+					<em>include</em>&nbsp;filter&nbsp;enables you to include results from related models in a query, for example models that have
+					belongsTo or hasMany relations, to optimize the number of requests.</p>
+
+				<p>The value of the include filter can be a string, an array, or an object.</p>
+
+				<div class="alert alert-warning" role="alert">
+					<p>
+						<i class="fa fa-warning"></i>
+						<b>Important:</b>
+						You can use an
+						<em>include</em> filter with
+						<code class="highlighter-rouge">find(),</code>
+						<code class="highlighter-rouge">findOne()</code> and
+						<code class="highlighter-rouge">findById()</code>.</p>
+				</div>
+
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code><span class="p">{</span><span class="nl">include</span><span class="p">:</span> <span class="s1">'relatedModel'</span><span class="p">}</span>
+<span class="p">{</span><span class="nl">include</span><span class="p">:</span> <span class="p">[</span><span class="s1">'relatedModel1'</span><span class="p">,</span> <span class="s1">'relatedModel2'</span><span class="p">,</span> <span class="p">...]}</span>
+<span class="p">{</span><span class="nl">include</span><span class="p">:</span> <span class="p">{</span><span class="nl">relatedModel1</span><span class="p">:</span> <span class="p">[{</span><span class="na">relatedModel2</span><span class="p">:</span> <span class="s1">'relationName'</span><span class="p">}</span> <span class="p">,</span> <span class="s1">'relatedModel'</span><span class="p">]}}</span>
+</code></pre>
+					</div>
+				</div>
+
+				<p>Where:</p>
+				<ul>
+					<li>
+						<em>relatedModel</em>,
+						<em>relatedModel1</em>, and
+						<em>relatedModel2</em> are the names (pluralized) of related models.</li>
+					<li>
+						<em>relationName</em> is the name of a relation in the related model.</li>
+				</ul>
+
+				<h3 id="examples" class="clickable-header top-level-header">Examples
+					<a class="anchorjs-link " href="#examples" aria-label="Anchor link for: examples" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+				</h3>
+				<i class="icon-arrow-up back-to-top"> </i>
+				<p>Include relations without filtering:</p>
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code><span class="nx">User</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">include</span><span class="p">:</span> <span class="s1">'posts'</span><span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">});</span>
+</code></pre>
+					</div>
+				</div>
+				<p>Return all user posts and orders with two additional requests:</p>
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code><span class="nx">User</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">include</span><span class="p">:</span> <span class="p">[</span><span class="s1">'posts'</span><span class="p">,</span> <span class="s1">'orders'</span><span class="p">]},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">});</span>
+</code></pre>
+					</div>
+				</div>
+				<p>Return all post owners (users), and all orders of each owner:</p>
+
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">include</span><span class="p">:</span> <span class="p">{</span><span class="na">owner</span><span class="p">:</span> <span class="s1">'orders'</span><span class="p">}},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">});</span>
+</code></pre>
+					</div>
+				</div>
+				<p>Return all post owners (users), and all friends and orders of each owner:</p>
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">include</span><span class="p">:</span> <span class="p">{</span><span class="na">owner</span><span class="p">:</span> <span class="p">[</span><span class="s1">'friends'</span><span class="p">,</span> <span class="s1">'orders'</span><span class="p">]}},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">});</span>
+</code></pre>
+					</div>
+				</div>
+				<p>Return all post owners (users), and all posts and orders of each owner. The posts also include images.</p>
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">include</span><span class="p">:</span> <span class="p">{</span><span class="na">owner</span><span class="p">:</span> <span class="p">[{</span><span class="na">posts</span><span class="p">:</span> <span class="s1">'images'</span><span class="p">}</span> <span class="p">,</span> <span class="s1">'orders'</span><span class="p">]}},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">});</span>
+</code></pre>
+					</div>
+				</div>
+				<h4 id="include-with-filters" class="clickable-header">Include with filters
+					<a class="anchorjs-link " href="#include-with-filters" aria-label="Anchor link for: include with filters"
+					 data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+				</h4>
+				<p>In some cases, you may want to apply filters to related models to be included.</p>
+				<div class="alert alert-info" role="alert">
+					<p>
+						<i class="fa fa-info-circle"></i>
+						<b>Note:</b>
+					</p>
+
+					<p>When you apply filters to related models, the query returns results from the first model plus any results from related models
+						with the filter query, similar to a “left join” in SQL.</p>
+
+				</div>
+				<p>API supports that with the following syntax (for example):</p>
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
+	<span class="na">include</span><span class="p">:</span> <span class="p">{</span>
+	<span class="na">relation</span><span class="p">:</span> <span class="s1">'owner'</span><span class="p">,</span><span class="err">&nbsp;</span><span class="c1">// include the owner object</span>
+	<span class="na">scope</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// further filter the owner object</span>
+		<span class="na">fields</span><span class="p">:</span> <span class="p">[</span><span class="s1">'username'</span><span class="p">,</span> <span class="s1">'email'</span><span class="p">],</span><span class="err">&nbsp;</span><span class="c1">// only show two fields</span>
+		<span class="na">include</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// include orders for the owner</span>
+		<span class="na">relation</span><span class="p">:</span> <span class="s1">'orders'</span><span class="p">,</span><span class="err">&nbsp;</span>
+		<span class="na">scope</span><span class="p">:</span> <span class="p">{</span>
+			<span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">orderId</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span> <span class="c1">// only select order with id 5</span>
+		<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">});</span>
+</code></pre>
+					</div>
+				</div>
+				<p>For real-world scenarios where only users in
+					<code class="highlighter-rouge">$authenticated</code> or
+					<code class="highlighter-rouge">$owner</code> roles should have access, use
+					<code class="highlighter-rouge">findById()</code>. For example, the following example uses filters to perform pagination:</p>
+				<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="s1">'123'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">include</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">relation</span><span class="p">:</span> <span class="s1">'orders'</span><span class="p">,</span>
+    <span class="na">scope</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// fetch 1st "page" with 5 entries in it</span>
+      <span class="na">skip</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="na">limit</span><span class="p">:</span><span class="mi">5</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">});</span>
+</code></pre></div></div>
+				<h4 id="access-included-objects" class="clickable-header">Access included objects
+					<a class="anchorjs-link " href="#access-included-objects" aria-label="Anchor link for: access included objects"
+					 data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+				</h4>
+				<p>In the Node.js API, call <code class="highlighter-rouge">toJSON()</code> to convert the returned model instance with related items into a plain JSON object. For example:</p>
+				<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">include</span><span class="p">:</span> <span class="p">{</span><span class="na">owner</span><span class="p">:</span> <span class="p">[{</span><span class="na">posts</span><span class="p">:</span> <span class="s1">'images'</span><span class="p">}</span> <span class="p">,</span> <span class="s1">'orders'</span><span class="p">]}},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span>
+ <span class="nx">posts</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">post</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">// post.owner points to the relation method instead of the owner instance</span>
+   <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">post</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">();</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">owner</span><span class="p">.</span><span class="nx">posts</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">owner</span><span class="p">.</span><span class="nx">orders</span><span class="p">);</span>
+ <span class="p">});</span>
+ <span class="c1">//...&nbsp;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+				<p>Note the relation properties such as
+					<code class="highlighter-rouge">post.owner</code> reference a JavaScript
+					<strong>function</strong> for the relation method.</p>
+
+			</div>
+			<div id="limit" class="post-content" style="margin-top: 40px">
+				<h1 class="post-title-main">Limit filter</h1>
+				<p>A&nbsp;
+					<em>limit</em>&nbsp;filter limits the number of records returned to the specified number (or less).</p>
+				<pre>{ limit: <i>n</i> } </pre>
+
+				<p>Where&nbsp;
+					<em>n</em>&nbsp;is the maximum number of results (records) to return.</p>
+
+				<h3 id="examples" class="clickable-header top-level-header">Examples
+					<a class="anchorjs-link " href="#examples" aria-label="Anchor link for: examples" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+				</h3>
+				<i class="icon-arrow-up back-to-top"> </i>
+
+				<p>Return only the first five query results:</p>
+
+				<div class="language-javascript highlighter-rouge">
+					<div class="highlight">
+						<pre class="highlight"><code class="highlighter-rouge">http://localhost:3000/api/v1/books?filter={"limit": 5}</code></pre>
+					</div>
+				</div>
+			</div>
+			<div id="order" class="post-content" style="margin-top: 40px">
+				<h1 class="post-title-main">Order filter</h1>
+
+					<p>An&nbsp;<em>order</em>&nbsp;filter specifies how to sort the results: ascending (ASC) or descending (DESC) based on the specified property.</p>
+
+				<p>Order by one property:</p>
+
+				<pre>{ order: '<i>propertyName</i> &lt;ASC|DESC&gt;' } </pre>
+
+				<p>Order by two or more properties:</p>
+
+				<pre>{ order: ['<i>propertyName</i> &lt;ASC|DESC&gt;', '<i>propertyName</i> &lt;ASC|DESC&gt;',...] } </pre>
+
+				<p>Where:</p>
+
+				<ul>
+				<li><em>propertyName</em>&nbsp;is the name of the property (field) to sort by.&nbsp;</li>
+				<li><code class="highlighter-rouge">&lt;ASC|DESC&gt;</code>&nbsp;signifies either ASC for ascending order or DESC for descending order.</li>
+				</ul>
+
+			</div>
+			<div id="skip" class="post-content" style="margin-top: 40px">
+				<h1 class="post-title-main">Skip filter</h1>
+
+					<p>A skip filter omits the specified number of returned records. This is useful, for example, to paginate responses.</p>
+
+
+					<pre>{skip: <i>n</i>} </pre>
+
+					<p>Where
+						<em>n</em> is the number of records to skip.</p>
+
+					<h3 id="examples" class="clickable-header top-level-header">Examples
+						<a class="anchorjs-link " href="#examples" aria-label="Anchor link for: examples" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+					<i class="icon-arrow-up back-to-top"> </i>
+
+					<p>The equivalent query using the Node API:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>http://localhost:3000/api/v1/books?filter={"skip": 5}</code></pre>
+						</div>
+					</div>
+			</div>
+			<div id="where" class="post-content" style="margin-top: 40px">
+				<h1 class="post-title-main">Where filter</h1>
+				<p>A&nbsp; <i>where</i>&nbsp;filter specifies a set of logical conditions to match, similar to a WHERE clause in a SQL query.</p>
+
+					<p>In the first form below, the condition is equivalence, that is, it tests whether&nbsp;
+						<em>property</em>&nbsp;equals&nbsp;
+						<em>value</em>. The second form below is for all other conditions.</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>http://localhost:3000/api/Books?filter={"where":{"or":[{"id":1},{"id":2},...,{"id":20"},{"id":21}]}}</code></pre>
+						</div>
+					</div>
+					<h3 id="where-clause-for-queries" class="clickable-header">Where clause for queries
+						<a class="anchorjs-link " href="#where-clause-for-queries" aria-label="Anchor link for: where clause for queries"
+						data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>For query methods such as&nbsp;
+						<code class="highlighter-rouge">find()</code>,
+						<code class="highlighter-rouge">&nbsp;findOrCreate()</code>, or&nbsp;
+						<code class="highlighter-rouge">findOne()</code>, use the first form below to test equivalence, that is, whether&nbsp;
+						<em>property</em>&nbsp;equals&nbsp;
+						<em>value</em>. Use the second form below for all other conditions.</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="p">{</span><span class="nl">where</span><span class="p">:</span><span class="err">&nbsp;</span><span class="p">{</span><span class="nl">property</span><span class="p">:</span><span class="err">&nbsp;</span><span class="nx">value</span><span class="p">}}</span><span class="err">&nbsp;</span></code></pre>
+						</div>
+					</div>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="p">{</span><span class="nl">where</span><span class="p">:</span><span class="err">&nbsp;</span><span class="p">{</span><span class="nl">property</span><span class="p">:</span> <span class="p">{</span><span class="nl">op</span><span class="p">:</span><span class="err">&nbsp;</span><span class="nx">value</span><span class="p">}}}</span></code></pre>
+						</div>
+					</div>
+
+					<p>Where:</p>
+
+					<ul>
+						<li>
+							<em>property</em>&nbsp;is the name of a property (field) in the model being queried.</li>
+						<li>
+							<em>value</em>&nbsp;is a literal value.&nbsp;</li>
+						<li>
+							<em>op</em>&nbsp;is one of the&nbsp;
+							<a href="#operators">operators</a>&nbsp;listed below.</li>
+					</ul>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/api/cars?filter={"where": {"carClass": "fullsize"}}</code></pre>
+						</div>
+					</div>
+					<h3 id="where-clause-for-other-methods" class="clickable-header">Where clause for other methods
+						<a class="anchorjs-link " href="#where-clause-for-other-methods" aria-label="Anchor link for: where clause for other methods"
+						data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<div class="alert alert-warning" role="alert">
+						<p>
+							<i class="fa fa-warning"></i>
+							<b>Important:</b>
+							When you call the Node APIs
+							<em>for methods other than queries</em>, that is for methods that update and delete (and
+								<code class="highlighter-rouge">count()</code> ), don’t wrap the where clause in a&nbsp;
+							<code class="highlighter-rouge">{&nbsp;where : ... }</code>&nbsp;object, simply use the condition as the argument as shown below. See examples below.</p>
+					</div>
+
+					<p>In the first form below, the condition is equivalence, that is, it tests whether&nbsp;
+						<em>property</em>&nbsp;equals&nbsp;
+						<em>value</em>. The second form is for all other conditions.</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="p">{</span><span class="nl">property</span><span class="p">:</span><span class="err">&nbsp;</span><span class="nx">value</span><span class="p">}</span>
+</code></pre>
+						</div>
+					</div>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="p">{</span><span class="nl">property</span><span class="p">:</span> <span class="p">{</span><span class="nl">op</span><span class="p">:</span><span class="err">&nbsp;</span><span class="nx">value</span><span class="p">}}</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>Where:</p>
+
+					<ul>
+						<li>
+							<em>property</em>&nbsp;is the name of a property (field) in the model being queried.</li>
+						<li>
+							<em>value</em>&nbsp;is a literal value.&nbsp;</li>
+						<li>
+							<em>op</em>&nbsp;is one of the&nbsp;
+							<a href="#operators">operators</a>&nbsp;listed below.</li>
+					</ul>
+
+					<p>For example, below shows a where clause in a call to a model’s&nbsp; <code>updateAll()</code> &nbsp;method. Note the lack of&nbsp;
+						<code class="highlighter-rouge">{&nbsp;where : ... }</code>&nbsp;in the argument.</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="kd">const</span> <span class="nx">myModel</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">Thing</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">theId</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+<span class="nx">myModel</span><span class="p">.</span><span class="nx">updateAll</span><span class="p">(</span> <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="nx">theId</span><span class="p">},</span> <span class="p">{</span><span class="na">regionId</span><span class="p">:</span> <span class="kc">null</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>More examples, this time in a call to&nbsp;
+						<code>destroyAll()</code>:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="kd">const</span> <span class="nx">RoleMapping</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">RoleMapping</span><span class="p">;</span>
+<span class="nx">RoleMapping</span><span class="p">.</span><span class="nx">destroyAll</span><span class="p">(</span> <span class="p">{</span> <span class="na">principalId</span><span class="p">:</span> <span class="nx">userId</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span> <span class="p">);</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>To delete all records where the cost property is greater than 100:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">productModel</span><span class="p">.</span><span class="nx">destroyAll</span><span class="p">({</span><span class="na">cost</span><span class="p">:</span> <span class="p">{</span><span class="na">gt</span><span class="p">:</span> <span class="mi">100</span><span class="p">}},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<h3 id="operators" class="clickable-header top-level-header">Operators
+						<a class="anchorjs-link " href="#operators" aria-label="Anchor link for: operators" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+					<i class="icon-arrow-up back-to-top"> </i>
+
+					<p>This table describes the operators available in “where” filters. See&nbsp;
+						<a href="#examples">Examples</a>&nbsp;below.</p>
+
+					<table>
+						<thead>
+							<tr>
+								<th>Operator</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>=</td>
+								<td>Equivalence. See
+									<a href="#equivalence">examples</a> below.</td>
+							</tr>
+							<tr>
+								<td>and</td>
+								<td>Logical AND operator. See
+									<a href="#and-and-or-operators">AND and OR operators</a> and
+									<a href="#and--or">examples</a> below.</td>
+							</tr>
+							<tr>
+								<td>or</td>
+								<td>Logical OR operator. See
+									<a href="#and-and-or-operators">AND and OR operators</a> and
+									<a href="#and--or">examples</a> below.</td>
+							</tr>
+							<tr>
+								<td>gt, gte</td>
+								<td>Numerical greater than (&gt;); greater than or equal (&gt;=). Valid only for numerical and date values. See
+									<a href="#gt-and-lt">examples</a> below.
+									<br>
+									<br> For Geopoint values, the units are in miles by default. </td>
+							</tr>
+							<tr>
+								<td>lt, lte</td>
+								<td>Numerical less than (&lt;); less than or equal (&lt;=). Valid only for numerical and date values.
+									<br>
+									<br>For geolocation values, the units are in miles by default.  </td>
+							</tr>
+							<tr>
+								<td>between</td>
+								<td>True if the value is between the two specified values: greater than or equal to first value and less than or equal to
+									second value. See
+									<a href="#gt-and-lt">examples</a> below.
+									<br>
+									<br> For geolocation values, the units are in miles by default.  </td>
+							</tr>
+							<tr>
+								<td>inq, nin</td>
+								<td>In / not in an array of values. See
+									<a href="#inq">examples</a> below.</td>
+							</tr>
+							<tr>
+								<td>near</td>
+								<td>For geolocations, return the closest points, sorted in order of distance. Use with
+									<code class="highlighter-rouge">limit</code> to return the
+									<em>n</em> closest points. See
+									<a href="#near">examples</a> below.</td>
+							</tr>
+							<tr>
+								<td>neq</td>
+								<td>Not equal (!=)</td>
+							</tr>
+							<tr>
+								<td>like, nlike</td>
+								<td>LIKE / NOT LIKE operators for use with regular expressions. The regular expression format depends on the backend data
+									source. See
+									<a href="#like-and-nlike">examples</a> below.</td>
+							</tr>
+							<tr>
+								<td>like, nlike, options: i</td>
+								<td>LIKE / NOT LIKE operators for use with regular expressions with the case insensitive flag. It is supported by the memory
+									and MongoDB connectors. The options property set to ‘i’ tells API that it should do case-insensitive matching on
+									the required property. See
+									<a href="#like-and-nlike-insensitive">examples</a> below.</td>
+							</tr>
+							<tr>
+								<td>ilike, nilike</td>
+								<td>ILIKE / NOT ILIKE operators for use with regular expressions. The operator is supported only by the memory and Postgresql
+									connectors. See
+									<a href="#ilike-and-nilike">examples</a> below.</td>
+							</tr>
+							<tr>
+								<td>regexp</td>
+								<td>Regular expression. See
+									<a href="#regular-expressions">examples</a> below.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h3 id="and-and-or-operators" class="clickable-header">AND and OR operators
+						<a class="anchorjs-link " href="#and-and-or-operators" aria-label="Anchor link for: and and or operators"
+						data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>Use the AND and OR operators to create compound logical filters based on simple where filter conditions, using the following
+						syntax.</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="p">{</span><span class="nl">where</span><span class="p">:</span> <span class="p">{</span><span class="o">&lt;</span><span class="nx">and</span><span class="o">|</span><span class="nx">or</span><span class="o">&gt;</span><span class="p">:</span> <span class="p">[</span><span class="nx">condition1</span><span class="p">,</span><span class="err">&nbsp;</span><span class="nx">condition2</span><span class="p">,</span> <span class="p">...]}}</span>
+</code></pre>
+						</div>
+					</div>
+
+
+					<p>Where
+						<em>condition1</em> and
+						<em>condition2</em>&nbsp;are a filter conditions.</p>
+
+					<p>See&nbsp;
+						<a href="#examples">examples</a>&nbsp;below.</p>
+
+					<h3 id="regular-expressions" class="clickable-header">Regular expressions
+						<a class="anchorjs-link " href="#regular-expressions" aria-label="Anchor link for: regular expressions"
+						data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>You can use regular expressions in a where filter, with&nbsp;the following syntax. You can use a regular expression in a
+						where clause for updates and deletes, as well as queries.</p>
+
+					<p>Essentially,&nbsp;
+						<code class="highlighter-rouge">regexp</code>&nbsp;is just like an operator in which you provide a regular expression value as the comparison value.</p>
+
+					<div class="alert alert-success" role="alert">
+						<p>
+							<i class="fa fa-check-square-o"></i>
+							<b>Tip:</b> A regular expression value can also include one or more&nbsp;
+							<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Advanced_searching_with_flags">flags</a>. For example, append&nbsp;
+							<code class="highlighter-rouge">/i</code>&nbsp;to the regular expression to perform a case-insensitive match.</p>
+					</div>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="p">{</span><span class="nl">where</span><span class="p">:</span> <span class="p">{</span><span class="nl">property</span><span class="p">:</span> <span class="p">{</span><span class="nl">regexp</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">expression</span><span class="o">&gt;</span><span class="p">}}}</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>Where&nbsp;
+						<code class="highlighter-rouge">&lt;expression&gt;</code>&nbsp;can be a:</p>
+
+					<ul>
+						<li>String defining a regular expression (for example,&nbsp;
+							<code class="highlighter-rouge">'^foo'</code>&nbsp;).</li>
+						<li>Regular expression literal (for example,&nbsp;
+							<code class="highlighter-rouge">/^foo/</code>&nbsp;).</li>
+						<li>Regular expression object (for example,&nbsp;
+							<code class="highlighter-rouge">new RegExp(/John/)</code>).</li>
+					</ul>
+
+					<p>Or, in a simpler format:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="p">{</span><span class="nl">where</span><span class="p">:</span> <span class="p">{</span><span class="nl">property</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">expression</span><span class="o">&gt;</span><span class="p">}}}</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>Where&nbsp;
+						<code class="highlighter-rouge">&lt;expression&gt;</code>&nbsp;can be a:</p>
+
+					<ul>
+						<li>Regular expression literal (for example,&nbsp;
+							<code class="highlighter-rouge">/^foo/</code>&nbsp;).</li>
+						<li>Regular expression object (for example,&nbsp;
+							<code class="highlighter-rouge">new RegExp(/John/)</code>).</li>
+					</ul>
+
+					<p>For more information on JavaScript regular expressions, see&nbsp;
+						<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">Regular Expressions (Mozilla Developer Network)</a>.</p>
+
+					<div class="alert alert-success" role="alert">
+						<p>
+							<i class="fa fa-check-square-o"></i>
+							<b>Tip:</b> The above where clause syntax is for queries. For updates and deletes, omit the
+							<code class="highlighter-rouge">{ where : ... }</code> wrapper. See
+							<a href="#where-clause-for-other-methods">Where clause for other methods</a> below.</p>
+					</div>
+
+					<p>For example, this query returns all cars for which the model starts with a capital “T”:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Cars</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span><span class="s2">"where"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"model"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"regexp"</span><span class="p">:</span> <span class="s2">"^T"</span><span class="p">}}}</span> <span class="p">);</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>Or, using the simplified form:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Cars</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span><span class="s2">"where"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"model"</span><span class="p">:</span> <span class="o">/^</span><span class="nx">T</span><span class="o">/</span><span class="p">}</span> <span class="p">}</span> <span class="p">);</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>
+						<strong>REST</strong>
+					</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>filter[where][property][regexp]=expression
+</code></pre>
+						</div>
+					</div>
+
+					<p>Where:</p>
+
+					<ul>
+						<li>
+							<em>property</em>&nbsp;is the name of a property (field) in the model being queried.</li>
+						<li>
+							<em>expression</em>&nbsp;is the JavaScript regular expression string. See&nbsp;
+							<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">Regular Expressions (Mozilla Developer Network)</a>.</li>
+					</ul>
+
+					<p>A regular expression value can also include one or more&nbsp;
+						<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Advanced_searching_with_flags">flags</a>. For example, append&nbsp;
+						<code class="highlighter-rouge">/i</code>&nbsp;to the regular expression to perform a case-insensitive match.</p>
+
+					<div class="alert alert-warning" role="alert">
+						<p>
+							<i class="fa fa-warning"></i>
+							<b>Important:</b>
+							When using a regular expression flag with the REST API, you
+							<em>must</em> precede the regular expression with a slash character (
+							<code class="highlighter-rouge">/</code>).</p>
+					</div>
+
+					<p>The following REST query&nbsp;returns all cars for which the model starts with a capital “T”::</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/api/cars?filter[where][model][regexp]=^T
+</code></pre>
+						</div>
+					</div>
+
+					<p>The following REST query&nbsp;returns all&nbsp;models that start with either an uppercase “T” or lowercase “t”:</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/api/cars?filter[where][model][regexp]=/^t/i
+</code></pre>
+						</div>
+					</div>
+
+					<p>Note that since the regular expression includes a flag, it is preceded by a slash&nbsp;(
+						<code class="highlighter-rouge">/</code>).</p>
+
+					<h3 id="examples" class="clickable-header top-level-header">Examples
+						<a class="anchorjs-link " href="#examples" aria-label="Anchor link for: examples" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+					<i class="icon-arrow-up back-to-top"> </i>
+
+					<h3 id="equivalence" class="clickable-header">Equivalence
+						<a class="anchorjs-link " href="#equivalence" aria-label="Anchor link for: equivalence" data-anchorjs-icon=""
+						style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>Weapons with name M1911:</p>
+
+					<p>
+						<strong>REST</strong>
+					</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/weapons?filter[where][name]=M1911
+</code></pre>
+						</div>
+					</div>
+
+					<p>Cars where carClass is “fullsize”:</p>
+
+					<p>
+						<strong>REST</strong>
+					</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/api/cars?filter[where][carClass]=fullsize
+</code></pre>
+						</div>
+					</div>
+
+					<p>Equivalently, in Node:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Cars</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> <span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">carClass</span><span class="p">:</span><span class="s1">'fullsize'</span><span class="p">}</span> <span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<h3 id="gt-and-lt" class="clickable-header">gt and lt
+						<a class="anchorjs-link " href="#gt-and-lt" aria-label="Anchor link for: gt and lt" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">ONE_MONTH</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">;</span>  <span class="c1">// Month in milliseconds</span>
+<span class="nx">transaction</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
+	<span class="na">where</span><span class="p">:</span> <span class="p">{</span>
+		<span class="na">userId</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+		<span class="na">time</span><span class="p">:</span> <span class="p">{</span><span class="na">gt</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">ONE_MONTH</span><span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>For example, the following query returns all instances of the employee model using a&nbsp;
+						<em>where</em>&nbsp;filter that specifies a date property after (greater than) the specified date:&nbsp;</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/employees?filter[where][date][gt]=2014-04-01T18:30:00.000Z
+</code></pre>
+						</div>
+					</div>
+
+					<p>The same query using the Node API:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Employees</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
+<span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="err">&nbsp;</span>
+	<span class="na">date</span><span class="p">:</span> <span class="p">{</span><span class="na">gt</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="s1">'2014-04-01T18:30:00.000Z'</span><span class="p">)}</span>
+<span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>The top three weapons with a range over 900 meters:</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/weapons?filter[where][effectiveRange][gt]=900&amp;filter[limit]=3
+</code></pre>
+						</div>
+					</div>
+
+					<p>Weapons with audibleRange less than 10:</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/weapons?filter[where][audibleRange][lt]=10 </code></pre>
+						</div>
+					</div>
+
+					<h3 id="and--or" class="clickable-header">and / or
+						<a class="anchorjs-link " href="#and--or" aria-label="Anchor link for: and  or" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>The following code is an example of using the “and” operator to find posts where the title is “My Post” and content is “Hello”.</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">and</span><span class="p">:</span> <span class="p">[{</span><span class="na">title</span><span class="p">:</span> <span class="s1">'My Post'</span><span class="p">},</span> <span class="p">{</span><span class="na">content</span><span class="p">:</span> <span class="s1">'Hello'</span><span class="p">}]}},</span><span class="err">&nbsp;</span>
+		<span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span>
+			<span class="p">...</span>
+<span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>Equivalent in REST:</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>?filter[where][and][0][title]=My%20Post&amp;filter[where][and][1][content]=Hello
+</code></pre>
+						</div>
+					</div>
+
+					<p>Example using the “or” operator to finds posts that either have title of “My Post” or content of “Hello”.</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">or</span><span class="p">:</span> <span class="p">[{</span><span class="na">title</span><span class="p">:</span> <span class="s1">'My Post'</span><span class="p">},</span> <span class="p">{</span><span class="na">content</span><span class="p">:</span> <span class="s1">'Hello'</span><span class="p">}]}},</span><span class="err">&nbsp;</span>
+		<span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span>
+			<span class="p">...</span>
+<span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>More complex example. The following expresses&nbsp;
+						<code class="highlighter-rouge">(field1= foo and field2=bar) OR field1=morefoo</code>:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+			<pre class="highlight"><code><span class="p">{</span>
+<span class="err">&nbsp;&nbsp;</span> <span class="nx">or</span><span class="p">:</span> <span class="p">[</span>
+<span class="err">&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="p">{</span> <span class="nl">and</span><span class="p">:</span> <span class="p">[{</span> <span class="na">field1</span><span class="p">:</span> <span class="s1">'foo'</span> <span class="p">},</span> <span class="p">{</span> <span class="na">field2</span><span class="p">:</span> <span class="s1">'bar'</span> <span class="p">}]</span> <span class="p">},</span>
+<span class="err">&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="p">{</span> <span class="nl">field1</span><span class="p">:</span> <span class="s1">'morefoo'</span> <span class="p">}</span>
+<span class="err">&nbsp;&nbsp;</span> <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+						</div>
+					</div>
+
+					<h3 id="between" class="clickable-header">between
+						<a class="anchorjs-link " href="#between" aria-label="Anchor link for: between" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>Example of between operator:</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>filter[where][price][between][0]=0&amp;filter[where][price][between][1]=7
+</code></pre>
+						</div>
+					</div>
+
+					<p>In Node API:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Shirts</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">size</span><span class="p">:</span> <span class="p">{</span><span class="na">between</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">]}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span> <span class="p">)</span>
+</code></pre>
+						</div>
+					</div>
+
+					<h3 id="near" class="clickable-header">near
+						<a class="anchorjs-link " href="#near" aria-label="Anchor link for: near" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>The
+						<code class="highlighter-rouge">where.&lt;field&gt;.near</code> filter is different from other where filters: most where filters&nbsp;
+						<strong>limit</strong>the number of records returned, whereas
+						<code class="highlighter-rouge">near</code>&nbsp;
+						<strong>orders</strong> them, making it more like a SQL
+						<code class="highlighter-rouge">order by</code>&nbsp;clause. By combining it with
+						<a href="Limit-filter.html">
+							<code class="highlighter-rouge">limit</code>
+						</a>, you can create a query to get, for example, the
+						<strong>three records nearest to a given location</strong>.</p>
+
+					<p>For example:</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/locations?filter[where][geo][near]=153.536,-28.1&amp;filter[limit]=3
+</code></pre>
+						</div>
+					</div>
+
+					<p>GeoPoints can be expressed in any of the following ways:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">location</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GeoPoint</span><span class="p">({</span><span class="na">lat</span><span class="p">:</span> <span class="mf">42.266271</span><span class="p">,</span> <span class="na">lng</span><span class="p">:</span> <span class="o">-</span><span class="mf">72.6700016</span><span class="p">});</span> <span class="c1">// GeoPoint</span>
+<span class="nx">location</span> <span class="o">=</span> <span class="s1">'42.266271,-72.6700016'</span><span class="p">;</span>                          <span class="c1">// String</span>
+<span class="nx">location</span> <span class="o">=</span> <span class="p">[</span><span class="mf">42.266271</span><span class="p">,</span> <span class="o">-</span><span class="mf">72.6700016</span><span class="p">];</span>                         <span class="c1">// Array</span>
+<span class="nx">location</span> <span class="o">=</span> <span class="p">{</span><span class="na">lat</span><span class="p">:</span> <span class="mf">42.266271</span><span class="p">,</span> <span class="na">lng</span><span class="p">:</span> <span class="o">-</span><span class="mf">72.6700016</span><span class="p">};</span>               <span class="c1">// Object Literal</span>
+
+<span class="nx">Restaurants</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">geo</span><span class="p">:</span> <span class="p">{</span><span class="na">near</span><span class="p">:</span> <span class="nx">location</span> <span class="p">}}},</span> <span class="kd">function</span> <span class="nx">callback</span><span class="p">(...</span>
+</code></pre>
+						</div>
+					</div>
+
+					<h3 id="near-ordering-andlimiting-by-distance" class="clickable-header">near (ordering
+						<em>and&nbsp;limiting by distance</em>)
+						<a class="anchorjs-link " href="#near-ordering-andlimiting-by-distance" aria-label="Anchor link for: near ordering andlimiting by distance"
+						data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>The near filter can take two additional properties:</p>
+
+					<ul>
+						<li>
+							<code class="highlighter-rouge">maxDistance</code>
+						</li>
+						<li>
+							<code class="highlighter-rouge">unit</code>
+						</li>
+					</ul>
+
+					<p>When
+						<code class="highlighter-rouge">maxDistance</code> is included in the filter, near behaves more like a typical where filter, limiting results to those within a given distance
+						to a location. By default,
+						<code class="highlighter-rouge">maxDistance</code> measures distance in
+						<strong>miles</strong>.</p>
+
+					<p>Example of finding the all restaurants within two miles of a given GeoPoint:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="kd">var</span> <span class="nx">userLocation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GeoPoint</span><span class="p">({</span>
+<span class="na">lat</span><span class="p">:</span> <span class="mf">42.266271</span><span class="p">,</span>
+<span class="na">lng</span><span class="p">:</span> <span class="o">-</span><span class="mf">72.6700016</span>
+<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">resultsPromise</span> <span class="o">=</span> <span class="nx">Restaurants</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
+<span class="na">where</span><span class="p">:</span> <span class="p">{</span>
+	<span class="na">location</span><span class="p">:</span> <span class="p">{</span>
+	<span class="na">near</span><span class="p">:</span> <span class="nx">userLocation</span><span class="p">,</span>
+	<span class="na">maxDistance</span><span class="p">:</span> <span class="mi">2</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>To change the units of measurement, specify&nbsp;
+						<code class="highlighter-rouge">unit</code> property to one of the following:</p>
+
+					<ul>
+						<li>
+							<code class="highlighter-rouge">kilometers</code>
+						</li>
+						<li>
+							<code class="highlighter-rouge">meters</code>
+						</li>
+						<li>
+							<code class="highlighter-rouge">miles</code>
+						</li>
+						<li>
+							<code class="highlighter-rouge">feet</code>
+						</li>
+						<li>
+							<code class="highlighter-rouge">radians</code>
+						</li>
+						<li>
+							<code class="highlighter-rouge">degrees</code>
+						</li>
+					</ul>
+
+					<p>For example, to change the query above to use kilometers instead of miles:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="kd">var</span> <span class="nx">resultsPromise</span> <span class="o">=</span> <span class="nx">Restaurants</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
+<span class="na">where</span><span class="p">:</span> <span class="p">{</span>
+	<span class="na">location</span><span class="p">:</span> <span class="p">{</span>
+	<span class="na">near</span><span class="p">:</span> <span class="nx">userLocation</span><span class="p">,</span>
+	<span class="na">maxDistance</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+	<span class="na">unit</span><span class="p">:</span> <span class="s1">'kilometers'</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<div class="alert alert-danger" role="alert">
+						<p>
+							<i class="fa fa-exclamation-circle"></i>
+							<b>Warning:</b> Spell Carefully!</p>
+
+						<p>If
+							<code class="highlighter-rouge">unit</code> value is mistyped, for example
+							<code class="highlighter-rouge">'mile'</code> instead of
+							<code class="highlighter-rouge">'miles'</code>, API will silently ignore the filter!</p>
+					</div>
+
+					<h3 id="like-and-nlike" class="clickable-header">like and nlike
+						<a class="anchorjs-link " href="#like-and-nlike" aria-label="Anchor link for: like and nlike" data-anchorjs-icon=""
+						style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>The like and nlike (not like) operators enable you to match SQL regular expressions.&nbsp;The regular expression format
+						depends on the backend data source.</p>
+
+					<p>Example of like operator:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">title</span><span class="p">:</span> <span class="p">{</span><span class="na">like</span><span class="p">:</span> <span class="s1">'M.-st'</span><span class="p">}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>Example of nlike operator:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">title</span><span class="p">:</span> <span class="p">{</span><span class="na">nlike</span><span class="p">:</span> <span class="s1">'M.-XY'</span><span class="p">}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>When using the memory connector:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">User</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="p">{</span><span class="na">like</span><span class="p">:</span> <span class="s1">'%St%'</span><span class="p">}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+<span class="nx">User</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="p">{</span><span class="na">nlike</span><span class="p">:</span> <span class="s1">'M%XY'</span><span class="p">}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<h3 id="like-and-nlike-insensitive" class="clickable-header">like and nlike insensitive
+						<a class="anchorjs-link " href="#like-and-nlike-insensitive" aria-label="Anchor link for: like and nlike insensitive"
+						data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="kd">var</span> <span class="nx">pattern</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">'.*'</span><span class="o">+</span><span class="nx">query</span><span class="o">+</span><span class="s1">'.*'</span><span class="p">,</span> <span class="s2">"i"</span><span class="p">);</span> <span class="cm">/* case-insensitive RegExp search */</span>
+<span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> <span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">title</span><span class="p">:</span> <span class="p">{</span> <span class="na">like</span><span class="p">:</span> <span class="nx">pattern</span><span class="p">}</span> <span class="p">}</span> <span class="p">},</span>
+</code></pre>
+						</div>
+					</div>
+					<p>Via the REST API:</p>
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>?filter={"where":{"title":{"like":"someth.*","options":"i"}}}
+</code></pre>
+						</div>
+					</div>
+
+					<h3 id="ilike-and-nilike" class="clickable-header">ilike and nilike
+						<a class="anchorjs-link " href="#ilike-and-nilike" aria-label="Anchor link for: ilike and nilike" data-anchorjs-icon=""
+						style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>The ilike and nilike (not ilike) operators enable you to match case insensitive regular expressions.&nbsp;It is supported
+						by the memory connector and Postgresql connectors.</p>
+
+					<p>Example of ilike operator:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">title</span><span class="p">:</span> <span class="p">{</span><span class="na">ilike</span><span class="p">:</span> <span class="s1">'m.-st'</span><span class="p">}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>Example of nilike operator:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Post</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">title</span><span class="p">:</span> <span class="p">{</span><span class="na">nilike</span><span class="p">:</span> <span class="s1">'m.-xy'</span><span class="p">}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>When using the memory connector:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">User</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="p">{</span><span class="na">ilike</span><span class="p">:</span> <span class="s1">'%st%'</span><span class="p">}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+<span class="nx">User</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="p">{</span><span class="na">nilike</span><span class="p">:</span> <span class="s1">'s%xy'</span><span class="p">}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>When using the Postgresql connector:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">User</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="p">{</span><span class="na">ilike</span><span class="p">:</span> <span class="s1">'john%'</span><span class="p">}}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">posts</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<h3 id="inq" class="clickable-header">inq
+						<a class="anchorjs-link " href="#inq" aria-label="Anchor link for: inq" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a>
+					</h3>
+
+					<p>The inq operator checks whether the value of the specified property matches any of the values provided in an array. The
+						general syntax is:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="p">{</span><span class="nl">where</span><span class="p">:</span> <span class="p">{</span> <span class="nl">property</span><span class="p">:</span> <span class="p">{</span> <span class="nl">inq</span><span class="p">:</span> <span class="p">[</span><span class="nx">val1</span><span class="p">,</span> <span class="nx">val2</span><span class="p">,</span> <span class="p">...]}}}</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>Where:</p>
+
+					<ul>
+						<li>
+							<em>property</em>&nbsp;is the name of a property (field) in the model being queried.</li>
+						<li>
+							<em>val1, val2</em>, and so on, are literal values in an array.</li>
+					</ul>
+
+					<p>Example of inq operator:</p>
+
+					<div class="language-javascript highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code><span class="nx">Posts</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="p">{</span><span class="na">inq</span><span class="p">:</span> <span class="p">[</span><span class="mi">123</span><span class="p">,</span> <span class="mi">234</span><span class="p">]}}},</span><span class="err">&nbsp;</span>
+<span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">p</span><span class="p">){...</span> <span class="p">});</span>
+</code></pre>
+						</div>
+					</div>
+
+					<p>REST:</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>/medias?filter[where][keywords][inq]=foo&amp;filter[where][keywords][inq]=bar
+</code></pre>
+						</div>
+					</div>
+
+					<p>Or&nbsp;</p>
+
+					<div class="highlighter-rouge">
+						<div class="highlight">
+							<pre class="highlight"><code>?filter={"where": {"keywords": {"inq": ["foo", "bar"]}}}
+</code></pre>
+						</div>
+					</div>
+				</div>
+
+
+
+		</div>
+	</div>
+</body>
+
+</html>

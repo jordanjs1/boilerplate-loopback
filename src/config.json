@@ -1,0 +1,26 @@
+{
+	"restApiRoot": "/api/v1",
+	"host": "0.0.0.0",
+	"remoting": {
+		"context": false,
+		"rest": {
+			"handleErrors": false,
+			"normalizeHttpPath": false,
+			"xml": false
+		},
+		"json": {
+			"strict": true,
+			"limit": "5mb"
+		},
+		"urlencoded": {
+			"extended": true,
+			"limit": "5mb"
+		},
+		"cors": false
+	},
+	"paginator": {
+		"limit": 10,
+		"maxLimit": 100,
+		"noMaxLimit": false
+	}
+}

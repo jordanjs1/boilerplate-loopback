@@ -1,0 +1,55 @@
+{
+	"_meta": {
+		"sources": [
+			"loopback/common/models",
+			"loopback/src/models",
+			"../common/models",
+			"../models",
+			"./models"
+		],
+		"mixins": [
+			"loopback/common/mixins",
+			"loopback/src/mixins",
+			"../node_modules/loopback-counts-mixin",
+			"../common/mixins",
+			"./mixins/timestamp",
+			"./mixins/readonly",
+			"./mixins/paginator",
+			"./mixins"
+		]
+	},
+	"Container": {
+		"dataSource": "storage",
+		"public": true
+	},
+	"Email": {
+		"dataSource": "emailDs"
+	},
+	"User": {
+		"dataSource": "mongod",
+		"public": false
+	},
+	"AccessToken": {
+		"dataSource": "mongod",
+		"public": false
+	},
+	"ACL": {
+		"dataSource": "mongod",
+		"public": false
+	},
+	"RoleMapping": {
+		"dataSource": "mongod",
+		"public": false,
+		"options": {
+			"strictObjectIDCoercion": true
+		}
+	},
+	"Role": {
+		"dataSource": "mongod",
+		"public": false
+	},
+	"user": {
+		"dataSource": "mongod",
+		"public": true
+	}
+}

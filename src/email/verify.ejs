@@ -1,0 +1,17 @@
+<% include layout/header %>
+<div style="text-align: center;">
+	<h2>Congratulations on successful account registration!</h2>
+	<p>
+		Please click on the link below to verify your account.
+	</p>
+	<a href="<%= verifyHref %>" class="btn">
+		Verify email address
+	</a>
+	<p>
+		Button not working? Paste the following link into your browser:
+		<a href="<%= verifyHref %>"><%= verifyHref %></a>
+	</p>
+	<p>Thank you for using our service.</p>
+</div>
+<% include layout/footer %>
+

@@ -1,0 +1,39 @@
+{
+	"initial:before": {
+		"loopback#favicon": {}
+	},
+	"initial": {
+		"compression": {
+			"enabled": true
+		},
+		"cors": {},
+		"helmet#xssFilter": {},
+		"helmet#frameguard": {},
+		"helmet#hsts": {},
+		"helmet#hidePoweredBy": {},
+		"helmet#ieNoOpen": {},
+		"helmet#noSniff": {},
+		"helmet#noCache": {}
+	},
+	"session": {},
+	"auth": {},
+	"parse": {},
+	"routes": {
+		"loopback#rest": {}
+	},
+	"files": {},
+	"final": {
+		"loopback#urlNotFound": {}
+	},
+	"final:after": {
+		"strong-error-handler": {
+			"strong-error-handler": {
+				"params": {
+					"debug": false,
+					"log": true,
+					"rootProperty": false
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"presets": [
+		"@babel/preset-env"
+	],
+	"plugins": [
+		"@babel/plugin-proposal-optional-chaining",
+		[
+			"module-resolver",
+			{
+				"root": [
+					"./"
+				],
+				"alias": {
+					"src": "./src"
+				},
+				"extensions": [
+					".ios.js",
+					".android.js",
+					".js",
+					".jsx",
+					".json"
+				],
+			}
+		]
+	]
+}

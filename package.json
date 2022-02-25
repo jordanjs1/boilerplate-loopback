@@ -1,0 +1,82 @@
+{
+  "name": "boilerplate-loopback",
+  "version": "1.1.1",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=14"
+  },
+  "description": "A boilerplate for a RESTful API (api only) using LoopBack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jordanjs1/boilerplate-loopback"
+  },
+  "keywords": [
+    "api",
+    "boilerplate",
+    "loopback",
+    "webpack",
+    "nodemon",
+    "babel"
+  ],
+  "private": false,
+  "scripts": {
+    "lint": "eslint .",
+    "posttest": "npm run lint && nsp check",
+    "start": "NODE_ENV=production babel-node .",
+    "dev": "DEBUG=compression nodemon . --exec babel-node",
+    "prod": "NODE_ENV=production babel-node .",
+    "prod:pm2": "NODE_ENV=production pm2 start src/server.js --name sponsorship-api --interpreter babel-node"
+  },
+  "dependencies": {
+    "async": "^3.2.2",
+    "aws-sdk": "^2.1044.0",
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "connect-mongo": "^4.6.0",
+    "cors": "^2.8.5",
+    "cron": "^1.8.2",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.10.7",
+    "debug": "^4.3.3",
+    "dotenv": "^10.0.0",
+    "express-rate-limit": "^5.5.1",
+    "express-useragent": "^1.0.15",
+    "form-data": "^4.0.0",
+    "helmet": "^4.6.0",
+    "lodash": "^4.17.21",
+    "loopback": "^3.28.0",
+    "loopback-boot": "2.28.0",
+    "loopback-component-explorer": "^6.5.1",
+    "loopback-component-storage": "^3.7.0",
+    "loopback-connector-mongodb": "5.5.0",
+    "loopback-counts-mixin": "^1.0.1",
+    "morgan": "^1.10.0",
+    "multiparty": "^4.2.2",
+    "pretty-error": "^4.0.0",
+    "qs": "^6.10.2",
+    "rotating-file-stream": "^3.0.2",
+    "serve-favicon": "^2.5.0",
+    "slugify": "^1.6.3",
+    "strong-error-handler": "^4.0.0",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/node": "^7.16.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "eslint": "8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-loopback": "^13.1.0",
+    "eslint-import-resolver-babel-module": "^5.3.1",
+    "eslint-plugin-import": "^2.25.3",
+    "nodemon": "^2.0.15",
+    "nsp": "^3.2.1"
+  }
+}
